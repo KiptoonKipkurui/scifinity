@@ -22,6 +22,13 @@ namespace Scifinity.Core
             this.fileUploadHandler = fileUploadHandler;
         }
 
+        public void Deploy()
+        {
+            Package();
+            Upload();
+            PostUpload();
+        }
+
         private void ExecuteCommands(List<Command> unorderedCommands)
         {
             unorderedCommands.OrderBy(x => x.Position)
@@ -44,7 +51,7 @@ namespace Scifinity.Core
             fileHandler.UploadAsync(configuration.CodeUpload);
         }
 
-        public void Deploy()
+        public void PostUpload()
         {
             var deploymentSteps = configuration.DeploymentSteps;
 

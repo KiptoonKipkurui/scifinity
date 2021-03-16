@@ -1,0 +1,47 @@
+{
+	"packaging_steps":
+	[
+		{
+			"position": 1, 
+			"command_text": "cd /path/to/project"
+		},
+		{
+			"position": 2,
+			"command_text": "dotnet package"
+		},
+		{
+			"position": 3,
+			"command_text": "zip /path/to/release"
+		}		
+	],
+	"ssh_login": 
+	{
+		"method": "password(less)"
+		"ip_or_host_fqdn": "192.168.0.1",
+		"user": "mundu",
+		"password": "superhardone"
+		"private_key_file_path": "/path/to/key/file"
+	},
+	"code_upload":
+	{
+		"version": 1.2,
+		"package_type": "zip",
+		"source_path": "/path/to/code",
+		"destination_path": "/path/to/destination"
+	},
+	"deployment_steps":
+	[			
+		{
+			"position": 1,
+			"command_text": "sudo systemctl stop my-service"
+		},
+		{
+			"position": 2,
+			"command_text": "cp /path/source /path/to/app"
+		},
+		{
+			"position": 3,
+			"command_text": "sudo systemctl start my-service"
+		},
+	]
+}
