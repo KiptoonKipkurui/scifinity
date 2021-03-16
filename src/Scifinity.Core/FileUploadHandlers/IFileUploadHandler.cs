@@ -9,7 +9,7 @@ namespace Scifinity.Core.FileUploadHandlers
 {
     public interface IFileUploadHandler
     {
-        public Task UploadAsync(CodeUpload codeUpload);
+        public void Upload(CodeUpload codeUpload);
         public IFileUploadHandler SetNext(IFileUploadHandler handler);
     }
 }

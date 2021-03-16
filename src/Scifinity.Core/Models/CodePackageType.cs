@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Scifinity.Core.Models
 {
-    public enum CodePackageType
+    public enum CodePackageType : int
     {
-        ZipPackage,
+        ZipPackage = 1,
         Directory
     }
 }

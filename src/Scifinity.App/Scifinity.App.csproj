@@ -6,6 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="sample_deployment_config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="sample_deployment_config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Scifinity.Core\Scifinity.Core.csproj" />
   </ItemGroup>
 

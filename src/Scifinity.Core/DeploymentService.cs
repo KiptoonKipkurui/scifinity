@@ -48,7 +48,7 @@ namespace Scifinity.Core
         public void Upload()
         {
             var fileHandler = fileUploadHandler.GetHandler(pipeline);
-            fileHandler.UploadAsync(configuration.CodeUpload);
+            fileHandler.Upload(configuration.CodeUpload);
         }
 
         public void PostUpload()

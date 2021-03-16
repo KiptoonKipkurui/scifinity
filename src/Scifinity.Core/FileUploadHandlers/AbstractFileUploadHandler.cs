@@ -10,11 +10,11 @@ namespace Scifinity.Core.FileUploadHandlers
     public abstract class AbstractFileUploadHandler : IFileUploadHandler
     {
         private IFileUploadHandler nextHandler;
-        public virtual async Task UploadAsync(CodeUpload codeUpload)
+        public virtual void Upload(CodeUpload codeUpload)
         {
             if (nextHandler != null)
             {
-                await nextHandler.UploadAsync(codeUpload);
+                nextHandler.Upload(codeUpload);
 
                 return;
             }

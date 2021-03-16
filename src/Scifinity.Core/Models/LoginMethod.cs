@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Scifinity.Core.Models
 {
-    public enum LoginMethod
+    public enum LoginMethod : int
     {
-        Password,
+        Password = 1,
         Passwordless
     }
 }

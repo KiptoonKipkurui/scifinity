@@ -16,7 +16,7 @@
 	],
 	"ssh_login": 
 	{
-		"method": "password(less)",
+		"method": 2,
 		"ip_or_host_fqdn": "192.168.0.1",
 		"user": "mundu",
 		"password": "superhardone",
@@ -24,8 +24,8 @@
 	},
 	"code_upload":
 	{
-		"version": 1.2,
-		"package_type": "zip",
+		"version": "1.2",
+		"package_type": 1,
 		"source_path": "/path/to/code",
 		"destination_path": "/path/to/destination"
 	},

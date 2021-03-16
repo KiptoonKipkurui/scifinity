@@ -19,11 +19,10 @@ namespace Scifinity.Core.FileUploadHandlers
             this.pipeline = pipeline;
         }
 
-        public override async Task UploadAsync(CodeUpload codeUpload)
+        public override void Upload(CodeUpload codeUpload)
         {
             if (File.Exists(codeUpload.SourcePath))
             {
-                await Task.CompletedTask;
                 using (FileStream fs = File.Create(codeUpload.SourcePath))
                 {
                     pipeline.UploadFile(fs, codeUpload.DestinationPath);
