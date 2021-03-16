@@ -8,6 +8,10 @@ The assumption here is that the code is available on the disk and the correct br
 
 The philosophy here is simple, we have our code and run it from a bunch of machines and all we want to do is get it there without complicating the whole pipeline. This is for you if you are the developer starting out the CI/CD journey but does not have the skills and budget of a fully fledged tool like Jenkins, Octopus deploy, Chef, Puppet, Azure Devops etc and is deploying code by hand. 
 
+Current build status:
+
+![build status](https://github.com/mmutiso/scifinity/actions/workflows/main-merge-build.yml/badge.svg)
+
 ## Deployment configuration
 
 The deployment configuration file is a json file that has the following sections:-
