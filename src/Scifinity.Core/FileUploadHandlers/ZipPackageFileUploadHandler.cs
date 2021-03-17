@@ -23,10 +23,11 @@ namespace Scifinity.Core.FileUploadHandlers
         {
             if (File.Exists(codeUpload.SourcePath))
             {
-                using (FileStream fs = File.Create(codeUpload.SourcePath))
-                {
-                    pipeline.UploadFile(fs, codeUpload.DestinationPath);
-                }
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Starting file upload to {codeUpload.DestinationPath}");
+                pipeline.UploadFile(codeUpload.SourcePath, codeUpload.DestinationPath);
+                Console.WriteLine("Upload complete");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {

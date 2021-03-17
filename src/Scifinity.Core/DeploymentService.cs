@@ -14,19 +14,24 @@ namespace Scifinity.Core
         DeploymentConfiguration configuration;
         DeploymentPipeline pipeline;
         FileUploadHandlerFactory fileUploadHandler;
+        PowershellClient powershellClient;
+
         public DeploymentService(DeploymentConfiguration configuration, DeploymentPipelineFactory pipelineFactory,
             FileUploadHandlerFactory fileUploadHandler)
         {
             this.configuration = configuration;
             this.pipeline = pipelineFactory.Create(configuration.SSHLogin);
             this.fileUploadHandler = fileUploadHandler;
+            powershellClient = new PowershellClient();
         }
 
         public void Deploy()
         {
+            Console.WriteLine("Deployment starting");
             Package();
             Upload();
             PostUpload();
+            Console.WriteLine("Deployment completed");
         }
 
         private void ExecuteCommands(List<Command> unorderedCommands)
@@ -34,7 +39,18 @@ namespace Scifinity.Core
             unorderedCommands.OrderBy(x => x.Position)
                 .ToList().ForEach(command =>
                 {
+                    Console.WriteLine($"Running command position {command.Position}. {command.CommandText}");
                     pipeline.RunCommand(command.CommandText);
+                });
+        }
+
+        private void ExecutePowershellCommands(List<Command> unorderedCommands)
+        {
+            unorderedCommands.OrderBy(x => x.Position)
+                .ToList().ForEach(command =>
+                {
+                    Console.WriteLine($"Running command position {command.Position}. {command.CommandText}");
+                    powershellClient.RunCommand(command.CommandText);
                 });
         }
 
@@ -42,7 +58,7 @@ namespace Scifinity.Core
         {
             var packageCommands = configuration.PackagingSteps;
 
-            ExecuteCommands(packageCommands);
+            ExecutePowershellCommands(packageCommands);
         }
 
         public void Upload()

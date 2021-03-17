@@ -15,7 +15,8 @@ namespace Scifinity.Core.Infrastructure
         SshClient sshClient;
         SftpClient sftpClient;
         ILogger<DeploymentPipeline> logger;
-        public DeploymentPipeline(SftpClient sftpClient, SshClient sshClient, ILogger<DeploymentPipeline> logger)
+        public DeploymentPipeline(SftpClient sftpClient, SshClient sshClient, 
+            ILogger<DeploymentPipeline> logger)
         {
             this.sshClient = sshClient;
             this.sftpClient = sftpClient;
@@ -24,12 +25,13 @@ namespace Scifinity.Core.Infrastructure
 
         public void RunCommand(string commandText)
         {
-            var result = sshClient.RunCommand(commandText);
-            logger.LogInformation($"Command Result: {result}");
+            var command = sshClient.RunCommand(commandText);
+            logger.LogInformation($"Command Result: {command.Result}");
         }
 
-        public void UploadFile(Stream sourceFileStream, string destinationPath)
+        public void UploadFile(string path, string destinationPath)
         {
+            var sourceFileStream = File.OpenRead(path);
             sftpClient.UploadFile(sourceFileStream, destinationPath);
             logger.LogInformation($"Sucessfully uploaded file to {destinationPath}");
         }
