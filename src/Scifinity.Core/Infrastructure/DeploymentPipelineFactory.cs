@@ -1,11 +1,8 @@
-﻿using Scifinity.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Renci.SshNet;
+using Renci.SshNet.Common;
+using Scifinity.Core.Models;
+using System;
 
 namespace Scifinity.Core.Infrastructure
 {
@@ -32,6 +29,11 @@ namespace Scifinity.Core.Infrastructure
         }
 
 
+        /// <summary>
+        /// get connection info
+        /// </summary>
+        /// <param name="loginInfo"><see cref="SSHLogin"/></param>
+        /// <returns></returns>
         private ConnectionInfo GetConnectionInfo(SSHLogin loginInfo)
         {
             var privateKeyFile = new PrivateKeyFile(loginInfo.PrivateKeyFilePath);
@@ -42,22 +44,71 @@ namespace Scifinity.Core.Infrastructure
             return connection;
         }
 
+        /// <summary>
+        /// get sftp client
+        /// </summary>
+        /// <param name="connection"><see cref="ConnectionInfo"/></param>
+        /// <returns></returns>
         private SftpClient GetConnectedSftpClient(ConnectionInfo connection)
         {
-            var client = new SftpClient(connection);
-            client.Connect();
-            logger.LogInformation($"Connected to host {connection.Host} for sftp");
+            try
+            {
+                var client = new SftpClient(connection);
+                client.Connect();
+                logger.LogInformation($"Connected to host {connection.Host} for sftp");
 
-            return client;
+                return client;
+            }
+            catch (SshConnectionException ex)
+            {
+                logger.LogError("Ssh connection was terminated with error message: ", ex.Message);
+            }
+
+            catch (SshAuthenticationException ex)
+            {
+                logger.LogError("SSH authentication error: ", ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                logger.LogError("Encountered exception: ", ex.Message);
+            }
+
+            return null;
         }
 
+        /// <summary>
+        /// get SSH client
+        /// </summary>
+        /// <param name="connection"><see cref="ConnectionInfo"/></param>
+        /// <returns></returns>
         private SshClient GetConnectedSSHClient(ConnectionInfo connection)
         {
-            var client = new SshClient(connection);
-            client.Connect();
-            logger.LogInformation($"Connected to host {connection.Host} for ssh commands");
+            try
+            {
+                var client = new SshClient(connection);
+                client.Connect();
+                logger.LogInformation($"Connected to host {connection.Host} for ssh commands");
 
-            return client;
+                return client;
+            }
+
+            catch (SshConnectionException ex)
+            {
+                logger.LogError("Ssh connection was terminated with error message: ", ex.Message);
+            }
+
+            catch (SshAuthenticationException ex)
+            {
+                logger.LogError("SSH authentication error: ", ex.Message);
+            }
+            catch (Exception ex)
+            {
+
+                logger.LogError("Encountered exception: ", ex.Message);
+            }
+
+            return null;
         }
     }
 }
