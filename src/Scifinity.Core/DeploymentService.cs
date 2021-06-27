@@ -40,6 +40,8 @@ namespace Scifinity.Core
                 .ToList().ForEach(command =>
                 {
                     Console.WriteLine($"Running command position {command.Position}. {command.CommandText}");
+
+                    //todo:command running behaviour configuration
                     pipeline.RunCommand(command.CommandText);
                 });
         }
