@@ -17,6 +17,7 @@ namespace Scifinity.Core.Infrastructure
         public DeploymentConfigurationBuilder(ILogger<DeploymentConfigurationBuilder> logger)
         {
             this.logger = logger;
+            //todo:populate logger
         }
 
         public DeploymentConfiguration GetConfiguration(string path)
